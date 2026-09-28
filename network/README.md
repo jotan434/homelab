@@ -12,8 +12,7 @@ ARRIS router (living room)
 FRITZ! repeater
    │  LAN
 Switch
-   ├── Proxmox host
-   ├── DC01 (Windows Server 2025)
+   ├── Proxmox host (HP EliteDesk 800 G4)
    └── other lab devices
 ```
 
@@ -24,17 +23,17 @@ Switch
 | Subnet          | 192.168.0.0/24                 |
 | Subnet mask     | 255.255.255.0                  |
 | Default gateway | 192.168.0.1                    |
-| DNS server      | DC01 (forwarder: 8.8.8.8)      |
+| DNS server      | 192.168.0.1      |
 
 ## IP plan (static)
 
 | IP            | Host        | Type                              | Purpose                  |
 |---------------|-------------|-----------------------------------|--------------------------|
-| 192.168.0.1   | Router      | Hardware                          | Gateway                  |
+| 192.168.0.1   | Router      | Hardware                          | Gateway, DNS                   |
 | 192.168.0.206 | uptime-kuma | LXC on Proxmox                    | Monitoring (port 3001)   |
 | 192.168.0.212 | tailscale   | LXC on Proxmox                    | Remote access VPN        |
 | 192.168.0.222 | proxmox     | HP EliteDesk 800 G4               | Hypervisor               |
-| 192.168.0.240 | DC01        | Windows Server 2025 (OptiPlex 3060) | Active Directory, DNS  |
+
 
 ## Design decisions
 
