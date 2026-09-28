@@ -48,11 +48,11 @@ Everything here is built and documented by me as I learn. Mistakes and fixes inc
 | Proxmox                | Planned     |
 | Uptime Kuma            | Planned     |
 | Tailscale              | Planned     |
-| Nginx Proxy Manager    | Planned     |
+| [Nginx Proxy Manager](nginx-proxy-manager/) | Done |
 | n8n                    | Planned     |
 
 ## Roadmap
 
-- [ ] Document Proxmox, Uptime Kuma, Tailscale, Nginx Proxy Manager and n8n
+- [ ] Document Proxmox, Uptime Kuma, Tailscale and n8n
 - [ ] Offline AI with Ollama on a spare EliteDesk
 - [ ] ESP32 status panel: LEDs that light up when a host is reachable
