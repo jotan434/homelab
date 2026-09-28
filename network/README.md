@@ -46,3 +46,5 @@ Switch
 - The switch is connected to the router over a **Wi-Fi link** (FRITZ!Repeater 1700).
   This is the bottleneck and single point of failure for my whole lab.
   Plan: replacing it with a LAN cable or powerline adapter when my lab gets more filled.
+- Local names like `kuma.home.arpa` only resolve on my workstation (`/etc/hosts`).
+  There is no local DNS server yet. See [Nginx Proxy Manager](../nginx-proxy-manager/).
