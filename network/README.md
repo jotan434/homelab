@@ -9,7 +9,7 @@ Internet
    │
 ARRIS router (living room)
    │  Wi-Fi link
-FRITZ! repeater
+FRITZ!Repeater 1700
    │  LAN
 Switch
    └── all my lab devices
@@ -31,6 +31,7 @@ Switch
 | 192.168.0.1   | Router      | Hardware                          | Gateway, DNS             |
 | 192.168.0.206 | uptime-kuma | LXC on Proxmox                    | Monitoring (port 3001)   |
 | 192.168.0.212 | tailscale   | LXC on Proxmox                    | Remote access VPN        |
+| 192.168.0.214 | nginx-proxy | LXC on Proxmox                    | Reverse proxy            |
 | 192.168.0.222 | proxmox     | HP EliteDesk 800 G4               | Hypervisor               |
 
 
@@ -42,6 +43,6 @@ Switch
 
 ## Known limitations
 
-- The switch is connected to the router over a **Wi-Fi link** (FRITZ! repeater).
+- The switch is connected to the router over a **Wi-Fi link** (FRITZ!Repeater 1700).
   This is the bottleneck and single point of failure for my whole lab.
   Plan: replacing it with a LAN cable or powerline adapter when my lab gets more filled.
