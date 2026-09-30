@@ -50,7 +50,7 @@ later in Proxmox under *Container → Network* (IPv4: Static, `<npm-ip>/24`, gat
 
 Why: every proxy host and every `/etc/hosts` or DNS entry points to this IP.
 If it changes through DHCP, all names break at once. Another container in my lab
-once lost its DHCP lease and became unreachable, see [network design decisions](../network/).
+once lost its DHCP lease and became unreachable, see [network design decisions](../network/02-design-decisions.md).
 
 ## What the script installs
 
