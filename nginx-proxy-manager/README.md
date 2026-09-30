@@ -1,70 +1,40 @@
 # Nginx Proxy Manager
 
-Reverse proxy that lets me open lab services by name instead of `IP:port`.
+Reverse proxy for my homelab. Instead of remembering `IP:port` for every service,
+I open it by name, for example `http://kuma.home.arpa`.
 
-## Overview
-
-| Setting        | Value                              |
-|----------------|------------------------------------|
-| Runs on        | LXC container on Proxmox           |
-| IP             | 192.168.0.214                      |
-| Admin UI       | http://192.168.0.214:81            |
-| Container DNS  | Uses the Proxmox host settings     |
-
-## Proxy hosts
-
-| Name             | Destination                  | Service      | SSL        |
-|------------------|------------------------------|--------------|------------|
-| kuma.home.arpa   | http://192.168.0.206:3001    | Uptime Kuma  | HTTP only  |
-
-## How a request flows
+## How it works
 
 ```
 Browser: http://kuma.home.arpa
    │
+   │  1. Name → IP   (/etc/hosts or DNS answers with the NPM address)
    ▼
-/etc/hosts on my workstation  →  kuma.home.arpa = 192.168.0.214
+Nginx Proxy Manager   <npm-ip>:80
    │
+   │  2. Finds the proxy host "kuma.home.arpa"
    ▼
-Nginx Proxy Manager (192.168.0.214:80)  →  looks up the proxy host "kuma.home.arpa"
-   │
-   ▼
-Uptime Kuma (192.168.0.206:3001)
+Uptime Kuma           <kuma-ip>:3001
 ```
 
-## Name resolution
+## At a glance
 
-There is no local DNS server in the lab yet. The names are set in `/etc/hosts`
-on my workstation:
+| Topic            | My setup                                                  |
+|------------------|-----------------------------------------------------------|
+| Runs as          | LXC container on Proxmox, installed with a helper script  |
+| Software         | OpenResty (Nginx) + Node.js, no Docker                    |
+| Proxied services | Uptime Kuma                                               |
+| Name resolution  | `/etc/hosts` on my workstation (no local DNS server yet)  |
+| TLS              | None, HTTP only                                           |
 
-```
-192.168.0.214   kuma.home.arpa
-```
+## Documentation
 
-`/etc/hosts` is checked before any DNS server, so this works without touching the router.
+| #  | File                                                   | What's inside                                          |
+|----|--------------------------------------------------------|--------------------------------------------------------|
+| 1  | [Installation](01-installation.md)                     | Helper script, what it installs, static IP, first login |
+| 2  | [Proxy hosts](02-proxy-hosts.md)                       | Adding a service step by step, websockets              |
+| 3  | [Name resolution](03-name-resolution.md)               | `/etc/hosts`, local DNS, why `.home.arpa`              |
+| 4  | [Testing & troubleshooting](04-troubleshooting.md)     | Test commands, errors and their causes                 |
+| 5  | [Limitations & lessons learned](05-limitations-and-lessons.md) | What doesn't work yet, what I learned          |
 
-## Why `.home.arpa`
-
-`.home.arpa` is reserved for home networks (RFC 8375). I started with `.home`,
-which is not an officially reserved domain, and switched to avoid conflicts later.
-
-## Testing
-
-```bash
-getent hosts kuma.home.arpa      # should print 192.168.0.214
-curl -I http://kuma.home.arpa    # should return HTTP 302 from openresty (NPM)
-```
-
-## Lessons learned
-
-- **A name lives in two places.** When I renamed `kuma.home` to `kuma.home.arpa` in NPM,
-  the browser showed "DNS address could not be found", because `/etc/hosts` still had the
-  old name. NPM decides where a request goes, DNS / `/etc/hosts` decides how you reach NPM.
-- **"Online" in NPM** only means NPM can reach the backend service.
-  It says nothing about whether clients can resolve the name.
-
-## Known limitations
-
-- Names only work on my workstation (`/etc/hosts`). Other devices still need `IP:port`.
-  A local DNS server (e.g. Pi-hole or AdGuard Home) would fix this for the whole network.
-- HTTP only, no TLS.
+Placeholders like `<npm-ip>` or `<kuma-ip>` stand for addresses in your own network.
