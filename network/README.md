@@ -1,50 +1,35 @@
 # Network
 
-Overview of my home network and IP plan.
+How my home network is built and how the lab fits into it.
 
 ## Topology
 
 ```
 Internet
    │
-ARRIS router (living room)
+ARRIS router (living room)      gateway + DNS, hands out DHCP addresses
    │  Wi-Fi link
-FRITZ!Repeater 1700
+FRITZ!Repeater 1700             turns the Wi-Fi link into LAN
    │  LAN
 Switch
-   └── all my lab devices
+   └── all lab devices (wired)
 ```
 
-## Basics
+## At a glance
 
-| Setting         | Value                          |
-|-----------------|--------------------------------|
-| Subnet          | 192.168.0.0/24                 |
-| Subnet mask     | 255.255.255.0                  |
-| Default gateway | 192.168.0.1                    |
-| DNS server      | 192.168.0.1                    |
+| Topic          | My setup                                                     |
+|----------------|--------------------------------------------------------------|
+| Network size   | One /24 home network (254 usable addresses)                  |
+| Gateway + DNS  | The router (`.1`)                                            |
+| Addresses      | DHCP for clients below `.200`, static IPs for servers from `.200` |
+| Local DNS      | None yet. Lab names only work via `/etc/hosts`               |
+| Lab uplink     | Wi-Fi link through a repeater (known bottleneck)             |
 
-## IP plan (static)
+## Documentation
 
-| IP            | Host        | Type                              | Purpose                  |
-|---------------|-------------|-----------------------------------|--------------------------|
-| 192.168.0.1   | Router      | Hardware                          | Gateway, DNS             |
-| 192.168.0.206 | uptime-kuma | LXC on Proxmox                    | Monitoring (port 3001)   |
-| 192.168.0.212 | tailscale   | LXC on Proxmox                    | Remote access VPN        |
-| 192.168.0.214 | nginx-proxy | LXC on Proxmox                    | Reverse proxy            |
-| 192.168.0.222 | proxmox     | HP EliteDesk 800 G4               | Hypervisor               |
-
-
-## Design decisions
-
-- **Servers use static IPs.** The Tailscale LXC once lost its DHCP lease after a
-  network outage and became unreachable. Since then every server gets a static IP.
-- **Servers are wired to the switch.** No server uses Wi-Fi directly.
-
-## Known limitations
-
-- The switch is connected to the router over a **Wi-Fi link** (FRITZ!Repeater 1700).
-  This is the bottleneck and single point of failure for my whole lab.
-  Plan: replacing it with a LAN cable or powerline adapter when my lab gets more filled.
-- Local names like `kuma.home.arpa` only resolve on my workstation (`/etc/hosts`).
-  There is no local DNS server yet. See [Nginx Proxy Manager](../nginx-proxy-manager/).
+| #  | File                                            | What's inside                                       |
+|----|-------------------------------------------------|-----------------------------------------------------|
+| 1  | [Address scheme](01-address-scheme.md)          | Which range is for what, setting a static IP in Proxmox |
+| 2  | [Design decisions](02-design-decisions.md)      | Why static IPs, why wired, why this range           |
+| 3  | [Troubleshooting](03-troubleshooting.md)        | Bottom-up checklist and errors I actually hit       |
+| 4  | [Limitations](04-limitations.md)                | What is weak right now and the plan for it          |
