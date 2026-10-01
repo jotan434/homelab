@@ -11,13 +11,11 @@ All devices in my lab and what they are used for. "Spare" means available for th
 | Dell OptiPlex 3060          | 1   | 16 GB RAM, 125 GB SSD               | Spare                         |
 | Dell Wyse 5010 Thin Client  | 1   | 2 GB RAM, 8 GB mSATA SSD            | Spare                         |
 
-## Workstations
+## Workstation
 
 | Device                | OS               | Specs                                     | Role                              |
 |-----------------------|------------------|-------------------------------------------|-----------------------------------|
 | HP ProBook 640 G5     | Linux Mint       | 32 GB RAM, 1 TB SSD                       | Main workstation, Docker host     |
-| HP EliteBook 845 G8   | Linux Mint 22.3  | Ryzen 3 PRO 5450U, 16 GB RAM, 256 GB SSD  | Spare                             |
-| Dell laptop           | –                | 16 GB RAM, 250 GB SSD                     | Spare                             |
 
 ## Other
 
