@@ -20,14 +20,15 @@ Without a subscription, the server is not allowed to download from them, so ever
 | **Symptom** | Red entries in the task list: *Update package database* → `command 'apt-get update' failed: exit code 100`. It failed every day |
 | **Cause** | Only the enterprise repositories (`pve-enterprise` and Ceph enterprise) were enabled. There was no `pve-no-subscription` repository |
 | **Effect** | Proxmox got **no updates**, including security updates, and nobody noticed |
-| **Fix** | See below |
+| **Fix** | See below. Done on 2026-10-01: the next update check finished with `OK`, and 86 updates (including a new kernel) were waiting |
 
 ## The fix (web UI)
 
 1. Node → **Updates** → **Repositories**
 2. Select `pve-enterprise` → **Disable**
 3. Select the Ceph enterprise repository → **Disable**
-4. **Add** → Repository: **No-Subscription** → **Add**
+4. **Add** → a popup *"No valid subscription"* appears first. Confirm it with **OK** (or press **Enter**).
+   Closing it with **X** cancels the whole action. Then choose Repository: **No-Subscription** → **Add**
 5. Node → **Updates** → **Refresh** → the task window must end with `TASK OK`
 
 The same check in the Proxmox shell:
