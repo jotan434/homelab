@@ -16,11 +16,11 @@ and how I check that it works.
 | Retention          | `keep-last 2` (the two newest backups per container) |
 | Notification       | Mail after every run, sent through an SMTP target (see [below](#mail-notifications-the-problem-and-the-fix)) |
 | Bandwidth limit    | None                                    |
-| If the host is off | Backups still happen (`repeat-missed` is on) |
+| If the host is off | The missed run is caught up as soon as the host is back (`repeat-missed` is on) |
 
 Status: the job works. My first run (started by hand with **Run now**) created all three backups and
 finished with `OK`. Mail notifications work since I fixed a Gmail rejection (see
-[Mail notifications](#mail-notifications-the-problem-and-the-fix)). I have not tested a restore yet.
+[Mail notifications](#mail-notifications-the-problem-and-the-fix)). I have not tested a restore, and I do not plan to for now.
 
 ## What the settings mean
 
@@ -34,6 +34,8 @@ finished with `OK`. Mail notifications work since I fixed a Gmail rejection (see
   (see [Storage](02-storage.md)). Backups are plain files in `/var/lib/vz/dump`.
 - **Mail notification.** Proxmox sends a report after each run. This needs a working mail path.
   Mine did not work at first, see [Mail notifications](#mail-notifications-the-problem-and-the-fix).
+- **`repeat-missed` on.** If the host was switched off at 16:00, Proxmox runs the job as soon as possible
+  after the host is back. Without it, that day would simply have no backup.
 
 ## Create the job
 
@@ -43,9 +45,10 @@ finished with `OK`. Mail notifications work since I fixed a Gmail rejection (see
 4. **Selection mode:** include selected VMs → tick 100, 101, 102
 5. **Mode:** Snapshot, **Compression:** ZSTD
 6. **Retention:** Keep Last = 2
-7. **Notification:** set the mode to "Use global notification settings", so the report goes to my
+7. **Repeat missed:** on (in the job's advanced options), so a run missed while the host was off is caught up
+8. **Notification:** set the mode to "Use global notification settings", so the report goes to my
    SMTP target (see [Mail notifications](#mail-notifications-the-problem-and-the-fix))
-8. **Create**
+9. **Create**
 
 To run it once right away: select the job → **Run now**.
 
@@ -127,13 +130,13 @@ more dangerous than one that fails loudly.
 | Limitation | Why it matters | Possible fix |
 |------------|----------------|--------------|
 | **Backups are on the same disk** | `local` lives on the same NVMe SSD as the containers. The backup protects against a broken update or a wrong command, **not** against a dead SSD | Second backup target on a different device (spare HP ProLiant MicroServer) |
-| **Only two versions** | A problem I notice after three days is already gone from the backups | Higher `keep-last`, or keep daily plus weekly versions | 
+| **Only two versions** | A problem I notice after three days is already gone from the backups | Higher `keep-last`, or keep daily plus weekly versions |
 | **Mail depends on one app password** | If the app password is revoked or changed, the mails stop and I may not notice | Press **Test** on the target now and then, and look at the Tasks list |
-| **Restore not tested yet** | Until then I do not know if the backups are usable | Restore one container under a new ID (see above) |
+| **Restore not tested** | Until it is, I do not know for sure that the backups are usable. A restore test is not planned for now | If needed later: restore one container under a new ID (see [Restore](#restore)) |
 
 ## Next steps
 
 - [x] Check the first backup files after the first run
-- [ ] Test a restore of one container under a new ID
-- [ ] Second backup target on a different device
 - [x] Verify that the notification mail arrives (fixed, see above)
+- [ ] Second backup target on a different device, once something important runs on the host
+- Not planned for now: a restore test. Until it is done, the backups stay unproven.
