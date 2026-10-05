@@ -16,7 +16,7 @@ and how I check that it works.
 | Retention          | `keep-last 2` (the two newest backups per container) |
 | Notification       | Mail after every run, sent through an SMTP target (see [below](#mail-notifications-the-problem-and-the-fix)) |
 | Bandwidth limit    | None                                    |
-| If the host is off | The run is skipped (`repeat-missed` is off) |
+| If the host is off | Backups still happen (`repeat-missed` is on) |
 
 Status: the job works. My first run (started by hand with **Run now**) created all three backups and
 finished with `OK`. Mail notifications work since I fixed a Gmail rejection (see
