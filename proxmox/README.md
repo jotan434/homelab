@@ -41,6 +41,6 @@ All three are LXC containers. There are no full virtual machines at the moment.
 | 3  | [Containers](03-containers.md)                            | LXC vs. VM, my containers and their settings explained    |
 | 4  | [Updates & repositories](04-updates-and-repositories.md)  | Enterprise vs. no-subscription, the update error I found  |
 | 5  | [Limitations & next steps](05-limitations-and-next-steps.md) | Backups on the same disk, one disk, one node          |
-| 6  | [Backups](06-backups.md)                                  | Backup job settings, mail fix, restore test, limits       |
+| 6  | [Backups](06-backups.md)                                  | Backup job settings, mail fix, restore how-to, limits    |
 
 Placeholders like `<proxmox-ip>` stand for addresses in your own network.

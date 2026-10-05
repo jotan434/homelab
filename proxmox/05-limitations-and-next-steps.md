@@ -12,6 +12,6 @@
 ## Next steps
 
 - [x] Backup job for all containers (to `local` first, see [Backups](06-backups.md))
-- [ ] Test a restore once. A backup that was never restored is only a hope
-- [ ] Decide where backups should live long term (ProLiant MicroServer?)
+- [ ] Second backup target on a different device (ProLiant MicroServer?), once something important runs on the host
 - [ ] `HTTP(s)` monitor for the web UI in Uptime Kuma
+- Not planned for now: a restore test. Until it is done, the backups stay unproven (how to do it later: [Backups](06-backups.md#restore))
