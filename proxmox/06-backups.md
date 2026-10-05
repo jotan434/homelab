@@ -127,8 +127,7 @@ more dangerous than one that fails loudly.
 | Limitation | Why it matters | Possible fix |
 |------------|----------------|--------------|
 | **Backups are on the same disk** | `local` lives on the same NVMe SSD as the containers. The backup protects against a broken update or a wrong command, **not** against a dead SSD | Second backup target on a different device (spare HP ProLiant MicroServer) |
-| **Only two versions** | A problem I notice after three days is already gone from the backups | Higher `keep-last`, or keep daily plus weekly versions |
-| **Missed runs are skipped** | If the host is off at 16:00, there is no backup that day | Pick a time when the host is on, or enable `repeat-missed` |
+| **Only two versions** | A problem I notice after three days is already gone from the backups | Higher `keep-last`, or keep daily plus weekly versions | 
 | **Mail depends on one app password** | If the app password is revoked or changed, the mails stop and I may not notice | Press **Test** on the target now and then, and look at the Tasks list |
 | **Restore not tested yet** | Until then I do not know if the backups are usable | Restore one container under a new ID (see above) |
 
