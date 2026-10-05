@@ -31,7 +31,7 @@ the numbered files (`01-…`, `02-…`) are the actual docs in reading order.
 ## Roadmap
 
 - [ ] Document Tailscale and n8n
-- [ ] Backups for all Proxmox containers
+- [ ] Second backup target on a different device (a daily backup job to the same disk already exists)
 - [ ] Local DNS server (Pi-hole or AdGuard Home), so lab names work on every device
 - [ ] Offline AI with Ollama on a spare EliteDesk
 - [ ] ESP32 status panel: LEDs that light up when a host is reachable
