@@ -11,7 +11,7 @@ Everything here is built and documented by me as I learn. Mistakes and fixes inc
 | Uptime Kuma         | LXC on Proxmox            | Monitoring with email alerts (SMTP)         | [uptime-kuma](uptime-kuma/)           |
 | Tailscale           | LXC on Proxmox            | Remote access to the lab from anywhere      | Planned                               |
 | Nginx Proxy Manager | LXC on Proxmox            | Reverse proxy: services by name, not IP:port | [nginx-proxy-manager](nginx-proxy-manager/) |
-| n8n                 | Docker on my workstation  | Workflow automation                         | Planned                               |
+| n8n                 | Docker on my workstation  | Workflow automation                         | [n8n](n8n/)                           |
 
 **Paused:** Windows Server 2025 domain controller (Active Directory) as a VirtualBox VM on my workstation.
 
@@ -24,13 +24,14 @@ Everything here is built and documented by me as I learn. Mistakes and fixes inc
 | [proxmox/](proxmox/)                           | Hypervisor: installation, storage, containers, updates     |
 | [nginx-proxy-manager/](nginx-proxy-manager/)   | Reverse proxy: installation, proxy hosts, name resolution  |
 | [uptime-kuma/](uptime-kuma/)                   | Monitoring: installation, monitors, email alerts           |
+| [n8n/](n8n/)                                   | Workflow automation: Docker setup, data and backup, limits |
 
 Every folder works the same way: `README.md` is a short intro with an index,
 the numbered files (`01-…`, `02-…`) are the actual docs in reading order.
 
 ## Roadmap
 
-- [ ] Document Tailscale and n8n
+- [ ] Document Tailscale
 - [ ] Second backup target on a different device (a daily backup job to the same disk already exists)
 - [ ] Local DNS server (Pi-hole or AdGuard Home), so lab names work on every device
 - [ ] Offline AI with Ollama on a spare EliteDesk
